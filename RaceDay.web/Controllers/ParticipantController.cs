@@ -66,7 +66,7 @@ namespace RaceDay.Web.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpPost] 
         public IActionResult Profile(IFormCollection form)
         {
             UserStore.FullName = form["FullName"];
