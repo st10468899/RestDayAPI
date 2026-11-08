@@ -55,7 +55,7 @@ namespace RaceDay.Web.Controllers
         public IActionResult MyResults() => View();
 
         public IActionResult Profile()
-        {
+        {  
             if (!UserStore.IsLoggedIn)
             {
                 return RedirectToAction("Login", "Account");
