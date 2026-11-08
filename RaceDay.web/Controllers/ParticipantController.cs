@@ -64,7 +64,7 @@ namespace RaceDay.Web.Controllers
             ViewBag.FullName = UserStore.FullName;
             ViewBag.Email = UserStore.Email;
             return View();
-        }
+        } 
 
         [HttpPost] 
         public IActionResult Profile(IFormCollection form)
