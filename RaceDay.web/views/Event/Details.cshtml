@@ -1,0 +1,87 @@
+﻿@model RaceDay.Web.Models.EventDetailsViewModel
+
+@{
+    ViewData["Title"] = Model?.Name ?? "Event Details";
+}
+
+<div class="container mt-4">
+    <!-- Event Header & Banner (Azure Blob Storage Image) -->
+    <div class="card shadow-lg border-0 overflow-hidden mb-4">
+        @if (!string.IsNullOrEmpty(Model?.BannerImageUrl))
+        {
+            <img src="@Model.BannerImageUrl" class="card-img-top style-banner" alt="@Model.Name Banner" style="max-height: 350px; object-fit: cover;" />
+        }
+        else
+        {
+            <div class="bg-primary text-white text-center py-5" style="background: linear-gradient(135deg, #0d6efd 0%, #6610f2 100%);">
+                <h1 class="display-4 fw-bold">🏎️ @Model?.Name</h1>
+                <p class="lead">@Model?.EventType | @Model?.Distance KM</p>
+            </div>
+        }
+
+        <div class="card-body p-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="fw-bold text-dark mb-0">@Model?.Name</h2>
+                <span class="badge bg-success fs-6">@Model?.EventType</span>
+            </div>
+
+            <p class="lead text-secondary">@Model?.Description</p>
+
+            <hr class="my-4" />
+
+            <div class="row text-center g-3 mb-4">
+                <div class="col-md-4">
+                    <div class="p-3 border rounded bg-light">
+                        <span class="fs-4">📅</span>
+                        <h6 class="fw-bold mt-2 mb-0">Date</h6>
+                        <small class="text-muted">@Model?.Date.ToLongDateString()</small>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-3 border rounded bg-light">
+                        <span class="fs-4">📍</span>
+                        <h6 class="fw-bold mt-2 mb-0">Location</h6>
+                        <small class="text-muted">@Model?.Location</small>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-3 border rounded bg-light">
+                        <span class="fs-4">🏃</span>
+                        <h6 class="fw-bold mt-2 mb-0">Distance</h6>
+                        <small class="text-muted">@Model?.Distance KM</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category Selection & Instant Enrolment Form -->
+            <div class="card border-primary mb-3">
+                <div class="card-header bg-primary text-white fw-bold">
+                    📝 Register for this Event
+                </div>
+                <div class="card-body">
+                    <form asp-controller="Participant" asp-action="Enrol" method="post">
+                        <input type="hidden" name="EventId" value="@Model?.Id" />
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Select Category</label>
+                            <select name="CategoryId" class="form-select form-select-lg" required>
+                                <option value="">-- Select an Age / Distance Category --</option>
+                                @if (Model?.Categories != null)
+                                {
+                                    @foreach (var cat in Model.Categories)
+                                    {
+                                        <option value="@cat.Id">@cat.Name (@cat.Description)</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-warning btn-lg w-100 fw-bold text-dark shadow">
+                            ⚡ Confirm & Instant Enrol
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

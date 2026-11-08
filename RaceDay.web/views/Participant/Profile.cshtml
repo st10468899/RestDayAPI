@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "My Profile";
+}
+
+<div class="row justify-content-center mt-4">
+    <div class="col-md-7">
+        <div class="card border-0 shadow-lg">
+            <div class="card-header bg-pink-theme text-white p-4 text-center">
+                <h3 class="fw-bold mb-0">👤 Participant Profile</h3>
+                <small>Manage your personal details and avatar</small>
+            </div>
+            <div class="card-body p-4">
+                <form asp-controller="Participant" asp-action="Profile" method="post" enctype="multipart/form-data">
+                    <div class="mb-3 text-center">
+                        <img src="https://via.placeholder.com/120" class="rounded-circle shadow mb-3" alt="Profile Picture" width="120" height="120" />
+                        <div>
+                            <label class="form-label fw-bold d-block">Change Profile Picture</label>
+                            <input name="ProfilePicture" type="file" class="form-control" accept="image/*" />
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Full Name</label>
+                        <input name="FullName" type="text" class="form-control" value="@ViewBag.FullName" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Email Address</label>
+                        <input name="Email" type="email" class="form-control" value="@ViewBag.Email" required />
+                    </div>
+                    <button type="submit" class="btn btn-pink btn-lg w-100 fw-bold shadow mt-3">
+                        💾 Save Profile Changes
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

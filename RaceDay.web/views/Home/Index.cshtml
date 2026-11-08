@@ -1,0 +1,93 @@
+﻿@using RaceDay.Web.Controllers
+@model List<RaceDay.Web.Controllers.EventModel>
+
+@{
+    ViewData["Title"] = "RaceDay Portal";
+}
+
+<div class="p-5 mb-4 rounded-3 text-white shadow-lg bg-pink-theme" style="background: linear-gradient(135deg, #d63384 0%, #b8256f 100%);">
+    <div class="container-fluid py-3 text-center">
+        <h1 class="display-3 fw-bold text-white">🏎️ RaceDay Portal</h1>
+        <p class="fs-4 mt-3 text-white">Discover upcoming athletic events, register participants, and manage live enrolments seamlessly.</p>
+
+        @if (!UserStore.IsLoggedIn)
+        {
+            <div class="d-flex justify-content-center gap-3 mt-4">
+                <a class="btn btn-light btn-lg fw-bold px-4 text-dark shadow" asp-controller="Account" asp-action="Register">
+                    📝 Register Account
+                </a>
+                <a class="btn btn-dark btn-lg fw-bold px-4 text-white shadow" asp-controller="Account" asp-action="Login">
+                    🔐 Login
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="d-flex justify-content-center gap-3 mt-4">
+                <a class="btn btn-light btn-lg fw-bold px-4 text-dark shadow" asp-controller="Participant" asp-action="MyEnrolments">
+                    📋 View My Enrolments
+                </a>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="container mt-5">
+    @if (!UserStore.IsLoggedIn)
+    {
+        <!-- Locked View for Guests -->
+        <div class="card border-0 shadow-sm p-5 text-center my-4 bg-white">
+            <div class="mb-3 fs-1">🔒</div>
+            <h3 class="fw-bold text-dark">Account Required</h3>
+            <p class="text-muted fs-5">Please register an account or log in to view available race events and enroll.</p>
+            <div class="d-flex justify-content-center gap-3 mt-3">
+                <a asp-controller="Account" asp-action="Register" class="btn text-white fw-bold px-4 py-2" style="background-color: #d63384;">Create Account</a>
+                <a asp-controller="Account" asp-action="Login" class="btn btn-outline-secondary fw-bold px-4 py-2">Log In</a>
+            </div>
+        </div>
+    }
+    else
+    {
+        <!-- Unlocked View for Authenticated Users -->
+        <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
+            <h2 class="fw-bold text-dark">Available Events</h2>
+            <span class="badge bg-pink fs-6" style="background-color: #d63384; color: white;">Live Dashboard</span>
+        </div>
+
+        <div class="row g-4">
+            @if (Model != null && Model.Count > 0)
+            {
+                @foreach (var ev in Model)
+                {
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-header text-white fw-bold d-flex justify-content-between" style="background-color: #d63384;">
+                                <span>@ev.EventType</span>
+                                <span>@ev.Distance KM</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title fw-bold text-dark">@ev.Name</h4>
+                                <p class="text-muted mb-1">📅 <strong>Date:</strong> @ev.Date</p>
+                                <p class="text-muted mb-2">📍 <strong>Location:</strong> @ev.Location</p>
+                                <p class="card-text text-secondary">Join this exciting race event with full route support and live timing checkpoints.</p>
+                            </div>
+                            <div class="card-footer bg-transparent border-0 pb-3">
+                                <form asp-controller="Participant" asp-action="Enrol" method="post">
+                                    <input type="hidden" name="eventName" value="@ev.Name" />
+                                    <input type="hidden" name="categoryName" value="@ev.EventType" />
+                                    <button type="submit" class="btn text-white w-100 fw-bold shadow-sm" style="background-color: #d63384;">⚡ Enrol Now</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12 text-center py-5">
+                    <div class="alert alert-warning">No events are currently available. Check back soon or create one from the Organiser Dashboard!</div>
+                </div>
+            }
+        </div>
+    }
+</div>

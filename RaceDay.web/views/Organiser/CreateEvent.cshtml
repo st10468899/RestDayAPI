@@ -1,0 +1,70 @@
+﻿@model dynamic
+
+@{
+    ViewData["Title"] = "Create Race Event";
+}
+
+<div class="row justify-content-center mt-4">
+    <div class="col-md-8">
+        <div class="card border-0 shadow-lg">
+            <div class="card-header bg-dark text-white p-4 text-center">
+                <h3 class="fw-bold mb-0">🏎️ Create New Event</h3>
+                <small class="text-light">Configure event specifications and upload banner media</small>
+            </div>
+            <div class="card-body p-4">
+                <form asp-controller="Organiser" asp-action="CreateEvent" method="post" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Event Name</label>
+                        <input name="Name" type="text" class="form-control" placeholder="e.g. City Grand Marathon" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Description</label>
+                        <textarea name="Description" class="form-control" rows="3" placeholder="Provide event summary and route details..." required></textarea>
+                    </div>
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Event Type</label>
+                            <select name="EventType" class="form-select" required>
+                                <option value="Marathon">Marathon</option>
+                                <option value="Trail Run">Trail Run</option>
+                                <option value="Cycling">Cycling</option>
+                                <option value="Sprint">Sprint</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Distance (KM)</label>
+                            <input name="Distance" type="number" step="0.1" class="form-control" placeholder="42.2" required />
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Event Date</label>
+                            <input name="Date" type="date" class="form-control" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Location / Venue</label>
+                            <input name="Location" type="text" class="form-control" placeholder="e.g. Municipal Sports Ground" required />
+                        </div>
+                    </div>
+
+                    <!-- Azure Blob Storage Image Upload Field -->
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Event Banner Image (Azure Blob Storage)</label>
+                        <input name="BannerImage" type="file" class="form-control" accept="image/*" />
+                        <small class="text-muted">Image will be uploaded to Azure Blob Storage via API.</small>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-warning btn-lg fw-bold w-100 text-dark shadow">
+                            💾 Save & Publish Event
+                        </button>
+                        <a asp-controller="Organiser" asp-action="Dashboard" class="btn btn-outline-secondary btn-lg">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

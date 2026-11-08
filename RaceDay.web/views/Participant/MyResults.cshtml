@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "My Race Results";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold text-dark">🏆 My Race History & Results</h2>
+            <p class="text-muted">Track your official finish times and overall placements.</p>
+        </div>
+        <a asp-controller="Home" asp-action="Index" class="btn btn-outline-primary">Browse Events</a>
+    </div>
+
+    <div class="card border-0 shadow-sm">
+        <div class="card-header bg-dark text-white fw-bold py-3">
+            Completed Races
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-secondary">
+                    <tr>
+                        <th>Event Name</th>
+                        <th>Date</th>
+                        <th>Category</th>
+                        <th>Finish Time</th>
+                        <th>Official Position</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="fw-bold">Spring City Sprint 10K</td>
+                        <td>15 Oct 2026</td>
+                        <td>Open Male 10K</td>
+                        <td><span class="badge bg-secondary fs-6">00:44:12</span></td>
+                        <td><span class="badge bg-success fs-6">47th out of 312</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
