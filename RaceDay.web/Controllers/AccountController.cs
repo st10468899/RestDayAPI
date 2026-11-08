@@ -26,7 +26,7 @@ namespace RaceDay.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public IActionResult Register() => View();
+        public IActionResult Register() => View(); 
 
         [HttpPost]
         public IActionResult Register(IFormCollection form)
