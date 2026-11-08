@@ -74,4 +74,4 @@ namespace RaceDay.Web.Controllers
             return RedirectToAction(nameof(Profile));
         }
     }
-}
+}  
